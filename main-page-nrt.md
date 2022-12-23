@@ -11,12 +11,12 @@ In June 2020 RGI commit decisions about tools and processes to adopt inside the 
 
 The learning path is composed by these topics:
 
-* [Setup develope workstation](./1_SETUP.md)
-* [Basic concept]
-* [RGI common libraries]
-* [First test](2_FIRST_TEST.md)
-* [Debugging]
-* [Running]
+* [Setup develope workstation](./setup.md)
+* [Basic concept](./basic_concept.md)
+* [RGI common libraries](./rgi_common.md)
+* [First test](first_test.md)
+* [Debugging](./debugging.md)
+* [Running](./setup.md)
 
 
 ## Tools list
