@@ -1,6 +1,6 @@
-# NRT-automattion-course
+# NRT-automation-course
 
-- [NRT-automattion-course](#nrt-automattion-course)
+- [NRT-automation-course](#nrt-automation-course)
   - [Main Topics](#main-topics)
   - [Tools list](#tools-list)
 
