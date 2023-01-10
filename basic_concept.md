@@ -13,11 +13,13 @@
   - [Work with PlayWright](#work-with-playwright)
     - [Pages](#pages)
     - [Selectors](#selectors)
+  - [Work with our Runner](#work-with-our-runner)
 
   
 
 ## What we are testing?
 Automatic testing is a process in which software tests are automatically run by a computer, without the need for human intervention. 
+
 ## Directory files explanation
 
 The directory will have a tree similar to this
@@ -94,7 +96,31 @@ All classes contain private attributes called selectors which uniquely identify 
 
 Selector uses most common jQuery syntax but PlayWright adds very interesting element localization functions, such as being able to use the page layout to search for elements with the most difficult to identify selectors (More info on the PlayWright [docs](https://playwright.dev/docs/locators)). 
 
+## Work with our Runner
 
+
+In all the steps you will see that a **OurWorld** will be passed as a parameter, it contains all the information of the test and is shared between the scenarios.
+
+```typescript
+Then("Open browser page", async function(this:OurWorld){
+    this.page.goto("http://google.com/")
+})
+```
+
+Our runner allows you to share data between the steps of the same scenario via **this.share**, a key-value map
+
+The solution for passing values ​​between two scenarios is different, in this case we use the Globalshare, an external library which always creates a key-value map but on a redis server [See more on RGI Common](./rgi_common.md). When we need to pass a variable between scenarios we have to add two steps that will make sure that the scenario from which I'm taking the variable has passed and to identify the variable. Like that:
+```gherkin
+Feature:name
+  Scenario:Creazione contraente
+    And ...
+    ...
+  Scenario:Emissione polizza
+    Given Ensure scenario "Creazione contraente"
+    And Read global "newParty" from scenario "Creazione contraente"
+
+```
+We have two other very used data structures: **this.output** (a key-value map that saves the data in the report output) and **this.attach**, a string that is 'attached' to the execution of a step and will be printed in the report whether the step is passed or not
 
 
 
