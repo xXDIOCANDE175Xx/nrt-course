@@ -41,6 +41,7 @@ export class MyTestPage extends ModelPage {
     static async check(currentPage: any) {
         MyTestPage.setPage(currentPage);
         await this.page.waitForSelector(this.cardSelector);
+        debugger
     }
 
     static async fillInputBox(text:string){
@@ -63,4 +64,4 @@ export class MyTestPage extends ModelPage {
 
 ---
 
-[[Return to main page](./0_NRT.md)] - [[Previuous chapter (Setup)](./1_SETUP.md)] - [[Next chapter (Running)](./2_FIRST_TEST.md)]
+[[Return to main page](./main-page-nrt.md.md)] - [[Previuous chapter (RGI Common)](./rgi_common.md)] - [[Next chapter (Running)](./running.md)]

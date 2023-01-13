@@ -17,6 +17,7 @@ The learning path is composed by these topics:
 * [First test](first_test.md)
 * [Debugging](./debugging.md)
 * [Running](./setup.md)
+* [Troubleshoot/Utility](./troubleshoot.md)
 
 
 ## Tools list

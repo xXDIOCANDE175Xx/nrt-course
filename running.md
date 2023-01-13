@@ -1,10 +1,8 @@
-# First test
+# Running
 
-- [First test](#first-test)
+## Local run
+
+## Jenkins job
 
 
-
-
----
-
-[[Return to main page](./0_NRT.md)] - [[Previuous chapter (Setup)](./1_SETUP.md)] - [[Next chapter (first test)](./2_FIRST_TEST.md)]
+[[Return to main page](./main-page-nrt.md)] - [[Previuous chapter (first test)](./first_test.md)] - [[Next chapter (debugging)](./debugging.md)]

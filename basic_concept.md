@@ -14,13 +14,13 @@
     - [Pages](#pages)
     - [Selectors](#selectors)
     - [Difference between pages and frames](#difference-between-pages-and-frames)
-    - [Perform a operation and synchronized the page](#perform-a-operation-and-synchronized-the-page)
+    - [Perform a operation and synchronize the page](#perform-a-operation-and-synchronize-the-page)
   - [Work with our Runner](#work-with-our-runner)
 
   
 
 ## What we are testing?
-Automatic testing is a process in which software tests are automatically run by a computer, without the need for human intervention. 
+Automatic testing is a process in which software tests are automatically run by a computer, without need for human intervention. 
 
 ## Directory files explanation
 
@@ -65,7 +65,7 @@ module.exports = {
 
 ### e2e-test/models
 
-This folder contains all the pages or cards scripts . They are typescript classes that extend the ModelPage class ([See RGI Common](./rgi_common.md)). 
+This folder contains all the pages or cards scripts. Those are typescript classes that extend the ModelPage class ([See RGI Common](./rgi_common.md)). 
 
 These files can have different suffixes based on the type of item they are (*.page.ts* in case it's a page or *.card.ts* if it's a card inside a page ).
 
@@ -82,12 +82,12 @@ By convention, the names of the feature files must be explanatory of their funct
 
 ### e2e-test/Utils
 
-This folder is used to collect those libraries tailored to the project and which will have a general utility *(e.g. a function that generates a valid license plate)*
+This folder is used to collect those libraries tailored to the project and which will have a general utility scope *(e.g. a function that generates a valid license plate)*
 
 ## Work with PlayWright
 
 ### Pages
-The class we are working on and which refers to the page/card is extended by the ModelPage class. Each page has a method to instantiate it. To use the page and its methods we must first call this method passing an object of type Page as a parameter
+The class we are working on and which refers to the page/card is extended from the ModelPage class. Each page has a method to instantiate itself. To use the page and its methods we must first call this method passing an object of type Page as a parameter.
 
 **Each different view has a different page.**
 ```typescript
@@ -96,16 +96,16 @@ check(page:Page){}
 
 ### Selectors
 
-All classes contain private attributes called selectors which uniquely identify the objects on the page
+All classes contain private attributes called selectors which uniquely identify the objects on the page.
 
-Selector uses most common jQuery syntax but PlayWright adds very interesting element localization functions, such as being able to use the page layout to search for elements with the most difficult to identify selectors (More info on the PlayWright [docs](https://playwright.dev/docs/locators)).
+Selector uses most common jQuery syntax but PlayWright adds very interesting element localization functions, like being able to use the page layout to search for elements with selectors harder to identify (More info on the PlayWright [docs](https://playwright.dev/docs/locators)).
 
 ### Difference between pages and frames
 In the Playwright library, a "page" represents a single web page that is being viewed in a browser.
 
-A "frame" represents an HTML **iframe** element within a web page. An iframe is used to embed another web page within the current page, and it has its own DOM (Document Object Model) and JavaScript context separate from the parent page
+A "frame" represents an HTML **iframe** element within a web page. An iframe is used to embed another web page within the current page, and it has its own DOM (Document Object Model) and JavaScript context separated from the parent page.
 
-In our case we manage the frame with a method called *jumpWithSelector(selector)* in class ModelPage. This function returns a Frame object, usable as a parameter in the check method of the new page
+In our case we manage the frame with a method called *jumpWithSelector(selector)* from class ModelPage. This function returns a Frame object, usable as a parameter in the *check* method of the new page
 
 ```typescript
 Then("I jump into a frame", async function(this:OurWorld){
@@ -114,9 +114,9 @@ Then("I jump into a frame", async function(this:OurWorld){
     await MyNewFrame.otherThings()
 })
 ```
-### Perform a operation and synchronized the page
+### Perform a operation and synchronize the page
 
-When we perform an operation that triggers a request potentially the browser may no longer be synchronized with the runner, that’s why these operations are performed in a special structure called Promise that allows you to parallelize the operations that take place inside
+When we perform an operation that triggers a request, the browser may no longer be synchronized with the runner, that’s why these operations are performed in a special structure called Promise that allows you to parallelize the operations executed in that code fragment
 
 ```typescript
 //waitResponseByMethod(path, method, timeout)
@@ -127,17 +127,20 @@ await Promise.all([
         ])
 ```
 
-To view the requests generated by the page you can use the DevTool browser in the network section (activate xhr/fetch filter). Looking then at the request waterfall evaluate which is the last request that is generated or the most durable
+To view the requests generated by the page you can use the network section in the DevTool browser (activate xhr/fetch filter).
+
+You can open the DevTools by pressing F12 (default key for almost every browser).
+
+Look then at the request waterfall to evaluate which is the last request that is generated or the most durable one.
 
 
-
-<img width="100%" height="200" src="./images/basic_concept/DevToolNet.png">*In this example I will choose '/teams' because it is executed as last*</img>
+<img width="100%" height="200" src="./images/basic_concept/DevToolNet.png">*In this example I will choose '/teams' because it is executed as last request*</img>
 
 
 ## Work with our Runner
 
 
-In all the steps you will see that a **OurWorld** will be passed as a parameter, it contains all the information of the test and is shared between the scenarios.
+In all the steps you will see that a **OurWorld** is passed as a parameter, it contains all the information of the test and is shared between scenarios.
 
 ```typescript
 Then("Open browser page", async function(this:OurWorld){
@@ -145,9 +148,9 @@ Then("Open browser page", async function(this:OurWorld){
 })
 ```
 
-Our runner allows you to share data between the steps of the same scenario via **this.share**, a key-value map
+Our runner allows you to share data between the steps of the same scenario via **this.share**, a key-value map.
 
-The solution for passing values ​​between two scenarios is different, in this case we use the Globalshare, an external library which always creates a key-value map but on a redis server [See more on RGI Common](./rgi_common.md). When we need to pass a variable between scenarios we have to add two steps that will make sure that the scenario from which I'm taking the variable has passed and to identify the variable. Like that:
+The solution for passing values ​​between two scenarios is different, in this case we use the Globalshare, an external library which always creates a key-value map but on a Redis server [See more on RGI Common](./rgi_common.md). When we need to pass a variable between scenarios we have to add two steps that will make sure that the scenario from which we are taking the variable has passed and to identify the variable; see an example below
 ```gherkin
 Feature:name
   Scenario:Creazione contraente
@@ -158,7 +161,7 @@ Feature:name
     And Read global "newParty" from scenario "Creazione contraente"
 
 ```
-We have two other very used data structures: **this.output** (a key-value map that saves the data in the report output) and **this.attach**, a string that is 'attached' to the execution of a step and will be printed in the report whether the step is passed or not
+We have two other very used data structures: **this.output** (a key-value map that saves the data in the report output) and **this.attach**, a string that is 'attached' to the execution of a step and will be printed in the report whether the step is passed or not.
 
 
 
